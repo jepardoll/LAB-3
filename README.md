@@ -56,3 +56,128 @@ Define la lógica combinacional exacta que rige el sistema. A partir de mapas de
 
 ### Descripción en Lenguaje de Hardware (Verilog)
 A partir de las ecuaciones obtenidas, el comportamiento del sistema se describe utilizando el lenguaje de descripción de hardware Verilog. Este código es el que define la lógica que posteriormente será sintetizada en la FPGA:
+
+
+### Código Fuente (Verilog - Top Module)
+
+```verilog
+module top(
+    input clk,                // Clock de la FPGA
+    output reg [6:0] seg_uni, // Display unidades
+    output reg [6:0] seg_dec  // Display decenas
+);
+
+   
+    // DIVISOR DE FRECUENCIA 
+    
+    reg [25:0] divisor = 0;
+
+   
+    // CONTADORES BCD
+    
+    reg [3:0] unidades = 0;
+    reg [3:0] decenas  = 0;
+
+    
+    // GENERAR PULSO DE CONTEO Y LÓGICA SECUENCIAL
+    
+    always @(posedge clk) begin
+        // MODIFICACIÓN: Cambiado de 49999999 a 4 para acelerar la simulación 
+        if(divisor == 4) begin
+            divisor <= 0;
+
+            // CONTADOR DE SEGUNDOS (Lógica de desborde)
+            if(unidades == 9) begin
+                unidades <= 0;
+                if(decenas == 5)
+                    decenas <= 0;
+                else
+                    decenas <= decenas + 1;
+            end
+            else begin
+                unidades <= unidades + 1;
+            end
+        end
+        else begin
+            divisor <= divisor + 1;
+        end
+    end
+
+    
+    // DECODER DISPLAY UNIDADES
+    
+    always @(*) begin
+        case(unidades)
+            4'd0: seg_uni = 7'b1111110;
+            4'd1: seg_uni = 7'b0110000;
+            4'd2: seg_uni = 7'b1101101;
+            4'd3: seg_uni = 7'b1111001;
+            4'd4: seg_uni = 7'b0110011;
+            4'd5: seg_uni = 7'b1011011;
+            4'd6: seg_uni = 7'b1011111;
+            4'd7: seg_uni = 7'b1110000;
+            4'd8: seg_uni = 7'b1111111;
+            4'd9: seg_uni = 7'b1111011;
+            default: seg_uni = 7'b0000000;
+        endcase
+    end
+
+
+    // DECODER DISPLAY DECENAS 
+   
+    always @(*) begin
+        case(decenas)
+            4'd0: seg_dec = 7'b1111110;
+            4'd1: seg_dec = 7'b0110000;
+            4'd2: seg_dec = 7'b1101101;
+            4'd3: seg_dec = 7'b1111001;
+            4'd4: seg_dec = 7'b0110011;
+            4'd5: seg_dec = 7'b1011011;
+            4'd6: seg_dec = 7'b1011111;
+            4'd7: seg_dec = 7'b1110000;
+            4'd8: seg_dec = 7'b1111111;
+            4'd9: seg_dec = 7'b1111011;
+            default: seg_dec = 7'b0000000;
+        endcase
+    end
+
+endmodule
+
+
+
+
+## 2. Dominio Estructural
+
+Este dominio detalla cómo está construida la lógica interna mediante la interconexión de bloques lógicos, registros y compuertas lógicas digitales puras generadas en el Netlist RTL.
+
+### Diagrama de Compuertas
+
+Esquemático estructural que implementa las transiciones secuenciales y los decodificadores de segmentos mediante compuertas digitales y celdas lógicas estándar:
+
+* **Módulos Decodificadores combinacionales:** Bloques sintetizados a partir de las sentencias `case` que actúan como matrices lógicas multiplexadas para transformar las señales BCD independientes de 4 bits en salidas de 7 segmentos.
+* **Registros de Conteo y Comparadores:** Estructuras internas de Flip-Flops tipo D que guardan los estados de unidades, decenas y divisor, interconectados con sumadores y compuertas lógicas de comparación para determinar el desborde en los valores 4, 9 y 5.
+
+
+## 3. Dominio Físico
+
+Este dominio abarca la materialización del circuito, considerando componentes electrónicos reales, niveles de voltaje (3.3V) y etapas de aislamiento y potencia.
+
+### Implementación en FPGA y Asignación de Pines
+
+Para llevar la lógica al mundo real, el código Verilog descrito en el dominio comportamental es recibido por una tarjeta FPGA **Cyclone IV Waveshare**. Mediante un proceso de síntesis, el entorno de desarrollo traduce este código y configura el hardware interno de la FPGA de manera física para que se comporte exactamente como el circuito lógico diseñado.
+
+Para que la FPGA interactúe con el entorno, se realiza la asignación de pines físicos (*Pin Planner*), emparejando las variables del código fuente con los terminales físicos de la tarjeta:
+
+### Circuito Físico Integrado
+
+La implementación completa del esquemático electrónico se divide en cuatro etapas principales interconectadas alrededor de la FPGA:
+
+* **Etapa de Entrada/Frecuencia:** Oscilador de cristal incorporado en la placa que genera la señal de reloj base de 50 MHz necesaria para sincronizar las operaciones secuenciales.
+* **Etapa de Procesamiento (FPGA):** Tarjeta FPGA Cyclone IV Waveshare previamente programada, que ejecuta la lógica secuencial interna y actualiza las líneas lógicas de salida.
+* **Etapa de Acoplamiento y Protección:** Matriz de resistencias limitadoras de corriente (330 Ω) colocadas en serie en cada línea de segmento para asegurar niveles estables de corriente y tensión eléctrica desde las E/S de la FPGA.
+* **Etapa de Visualización de Salida:** Dos módulos de displays físicos de 7 segmentos independientes encargados de traducir los niveles lógicos en la representación visual de los dígitos correspondientes.
+
+
+
+
+
