@@ -58,7 +58,6 @@ Define la lógica combinacional exacta que rige el sistema. A partir de mapas de
 A partir de las ecuaciones obtenidas, el comportamiento del sistema se describe utilizando el lenguaje de descripción de hardware Verilog. Este código es el que define la lógica que posteriormente será sintetizada en la FPGA:
 
 
-### Código Fuente (Verilog - Top Module)
 
 ```verilog
 module top(
