@@ -160,7 +160,62 @@ Esquemático estructural que implementa las transiciones secuenciales y los deco
 * **Registros de Conteo y Comparadores:** Estructuras internas de Flip-Flops tipo D que guardan los estados de unidades, decenas y divisor, interconectados con sumadores y compuertas lógicas de comparación para determinar el desborde en los valores 4, 9 y 5.
 
 
-## 3. Dominio Físico
+## 3. Simulación y Verificación
+
+Para garantizar el correcto funcionamiento de la lógica antes de su implementación física en la FPGA, se desarrolló un entorno de pruebas (*Testbench*). 
+
+Este módulo no es sintetizable; su único propósito es inyectar estímulos (como la señal de reloj y posibles reinicios) al módulo principal (`top`) y observar la respuesta de las señales de salida a lo largo del tiempo.
+
+### Testbench 
+
+```verilog
+`timescale 1ns / 1ps
+
+module tb_top;
+    
+    reg clk;
+    wire [6:0] seg_uni;
+    wire [6:0] seg_dec;
+   
+    top dut (
+        .clk(clk),
+        .seg_uni(seg_uni),
+        .seg_dec(seg_dec)
+    );
+
+    
+    
+    initial begin
+        
+        $dumpfile("dump.vcd");
+        
+        // El '0' indica que guarde las ondas de este módulo y 
+        // de todos los submódulos internos 
+        $dumpvars(0, tb_top); 
+	    // VISUALIZACIÓN EN CONSOLA 
+               $monitor("Tiempo: %0t ns | clk: %b | Decenas: %b | Unidades: %b", 
+                 $time, clk, seg_dec, seg_uni);
+
+        clk = 0;
+        
+        // Mantenemos el tiempo en 5000 asumiendo que el módulo 'top' 
+        // Tiene la modificación rápida (divisor == 4).
+        #6000; 
+        
+        $finish;
+    end
+
+    
+    always begin
+        #10 clk = ~clk; // Genera el reloj simulado de 50 MHz
+    end
+
+endmodule
+```
+---
+
+
+## 4. Dominio Físico
 
 Este dominio abarca la materialización del circuito, considerando componentes electrónicos reales, niveles de voltaje (3.3V) y etapas de aislamiento y potencia.
 
