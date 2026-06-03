@@ -82,11 +82,11 @@ module top(
     // GENERAR PULSO DE CONTEO Y LÓGICA SECUENCIAL
     
     always @(posedge clk) begin
-        // MODIFICACIÓN: Cambiado de 49999999 a 4 para acelerar la simulación 
-        if(divisor == 4) begin
+        
+        if(divisor == 49999999 ) begin
             divisor <= 0;
 
-            // CONTADOR DE SEGUNDOS (Lógica de desborde)
+            // CONTADOR DE SEGUNDOS 
             if(unidades == 9) begin
                 unidades <= 0;
                 if(decenas == 5)
