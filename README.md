@@ -212,7 +212,7 @@ module tb_top;
 
         clk = 0;
         
-        // Mantenemos el tiempo en 5000 asumiendo que el módulo 'top' 
+        // Ponemos 6000 en el tiempo porque el módulo 'top' 
         // Tiene la modificación rápida (divisor == 4).
         #6000; 
         
