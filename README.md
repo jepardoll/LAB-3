@@ -43,6 +43,7 @@ Define la lógica combinacional exacta que rige el sistema. A partir de mapas de
 
 ![Tabla de Verdad](Imagenes/TablaVerdad.png)
 
+
 ## Diccionario de Señales (Entradas / Salidas)
 
 | Tipo | Variable Lógica | Etiqueta Física | Descripción |
@@ -214,6 +215,18 @@ endmodule
 ```
 ---
 
+
+A partir del tesbench verificamos que nuestra implementación del contador en la FPGA va a funcionar correctamente. 
+Acontinuación se envidencia el resultado obtenido: 
+
+-Estado inicial del contador
+![CLK S0](Imagenes/TB_CLK0.png)
+
+-Cambio contador decenas
+![CLK S0](Imagenes/TB_CLK1.png)
+
+-Estado final del contador
+![CLK S0](Imagenes/TB_CLK2.png)
 
 ## 4. Dominio Físico
 
