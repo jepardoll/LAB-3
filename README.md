@@ -230,7 +230,7 @@ endmodule
 
 
 A partir del tesbench verificamos que nuestra implementación del contador en la FPGA va a funcionar correctamente. 
-Acontinuación se envidencia el resultado obtenido: 
+A continuación se envidencia el resultado obtenido: 
 
 -Estado inicial del contador
 ![CLK S0](Imagenes/TB_CLK0.png)
