@@ -158,6 +158,19 @@ Este dominio detalla cómo está construida la lógica interna mediante la inter
 Esquemático estructural que implementa las transiciones secuenciales y los decodificadores de segmentos mediante compuertas digitales y celdas lógicas estándar:
 
 * **Módulos Decodificadores combinacionales:** Bloques sintetizados a partir de las sentencias `case` que actúan como matrices lógicas multiplexadas para transformar las señales BCD independientes de 4 bits en salidas de 7 segmentos.
+
+A continuación se presenta su representación RTL:
+
+### Decoder del 7 segmentos
+
+
+![Decoder](Imagenes/Decoder7Segmentos.jpeg)
+
+### Decoders juntos sus respectivos 7 segmentos
+![7 Segementos](Imagenes/7Segmentos.jpeg)
+
+
+
 * **Registros de Conteo y Comparadores:** Estructuras internas de Flip-Flops tipo D que guardan los estados de unidades, decenas y divisor, interconectados con sumadores y compuertas lógicas de comparación para determinar el desborde en los valores 4, 9 y 5.
 
 
