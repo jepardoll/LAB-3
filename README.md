@@ -159,6 +159,9 @@ A continuación se presenta su representación RTL:
 ![7 Segementos](Imagenes/7Segmentos.jpeg)
 
 
+### RTL 
+![FPGA2](Imagenes/top.png)
+
 
 * **Registros de Conteo y Comparadores:** Estructuras internas de Flip-Flops tipo D que guardan los estados de unidades, decenas y divisor, interconectados con sumadores y compuertas lógicas de comparación para determinar el desborde en los valores 4, 9 y 5.
 
@@ -252,6 +255,5 @@ La implementación completa del esquemático electrónico se divide en cuatro et
 
 ![FPGA1](Imagenes/FPGACONNECTION.jpeg)
 
-![FPGA2](Imagenes/top.png)
 
 
