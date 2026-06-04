@@ -10,15 +10,6 @@ El proyecto está estructurado bajo tres dominios fundamentales del diseño elec
 
 Este dominio define *qué* hace el sistema, sus interfaces y su lógica de control algorítmica, sin entrar en detalles de la implementación del hardware interno.
 
-### Diagrama de Caja Negra
-
-Establece las fronteras del sistema, definiendo claramente las señales de entrada (estímulos y sensores) y las señales de salida (actuadores e indicadores visuales).
-
-* **Entradas:** Reloj maestro (`clk`) de la tarjeta FPGA.
-* **Salidas:** Buses de control combinacionales de 7 segmentos independientes para las unidades (`seg_uni[6:0]`) y para las decenas (`seg_dec[6:0]`).
-
-![Diagrama de Caja Negra](Imagenes/DiagramaCajaNegra.png)
-
 ### Diagrama de Flujo
 
 Describe el algoritmo de toma de decisiones y las prioridades del sistema:
@@ -27,7 +18,7 @@ Describe el algoritmo de toma de decisiones y las prioridades del sistema:
 2.  **Prioridad 2 (Contador de Unidades):** Incrementa bajo la señal del divisor. Al alcanzar el valor binario máximo de `9`, se reinicia inmediatamente a `0` y propaga un acarreo síncrono.
 3.  **Prioridad 3 (Contador de Decenas):** Incrementa exclusivamente con el desborde del módulo de unidades. Al alcanzar el valor límite de `5` de manera simultánea con un `9` en las unidades (segundo 59), limpia ambos contadores.
 
-![Diagrama de Flujo](Imagenes/DiagramaFlujo.jpeg)
+![Diagrama de Flujo](Imagenes/Diagrama_Flujo.jpeg)
 
 ### Tabla de Verdad y Ecuaciones Booleanas
 
