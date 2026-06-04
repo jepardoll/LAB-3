@@ -10,6 +10,15 @@ El proyecto está estructurado bajo tres dominios fundamentales del diseño elec
 
 Este dominio define *qué* hace el sistema, sus interfaces y su lógica de control algorítmica, sin entrar en detalles de la implementación del hardware interno.
 
+### Diagrama de Caja Negra
+
+Establece las fronteras del sistema, definiendo claramente las señales de entrada (estímulos y sensores) y las señales de salida (actuadores e indicadores visuales).
+
+* **Entradas:** Reloj maestro (`clk`) de la tarjeta FPGA.
+* **Salidas:** Buses de control combinacionales de 7 segmentos independientes para las unidades (`seg_uni[6:0]`) y para las decenas (`seg_dec[6:0]`).
+
+![Diagrama de Caja Negra](Imagenes/DiagramaCajaNegra.png)
+
 ### Diagrama de Flujo
 
 Describe el algoritmo de toma de decisiones y las prioridades del sistema:
