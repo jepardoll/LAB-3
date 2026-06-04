@@ -20,7 +20,7 @@ Describe el algoritmo de toma de decisiones y las prioridades del sistema:
 
 ![Diagrama de Flujo](Imagenes/Diagrama_Flujo.jpeg)
 
-### Tabla de Verdad y Ecuaciones Booleanas
+### Ecuaciones Booleanas
 
 Define la lógica combinacional exacta que rige el sistema. A partir de mapas de simplificación, se obtuvieron las siguientes ecuaciones booleanas simplificadas que dictan el comportamiento de los segmentos de salida ($a, b, c, d, e, f, g$) en función de los bits binarios BCD de los contadores internos ($D_3$, $D_2$, $D_1$, $D_0$):
 
@@ -31,8 +31,6 @@ Define la lógica combinacional exacta que rige el sistema. A partir de mapas de
 * $e = (\\overline{D_2} \land \\overline{D_0}) \lor (D_1 \land \\overline{D_0})$
 * $f = D_3 \lor (\\overline{D_1} \land \\overline{D_0}) \lor (D_2 \land \\overline{D_1}) \lor (D_2 \land \\overline{D_0})$
 * $g = D_3 \lor (D_2 \land \\overline{D_1}) \lor (\\overline{D_2} \land D_1) \lor (D_1 \land \\overline{D_0})$
-
-![Tabla de Verdad](Imagenes/TablaVerdad.png)
 
 
 ## Diccionario de Señales (Entradas / Salidas)
@@ -223,13 +221,13 @@ endmodule
 A partir del tesbench verificamos que nuestra implementación del contador en la FPGA va a funcionar correctamente. 
 A continuación se envidencia el resultado obtenido: 
 
--Estado inicial del contador
+### Estado inicial del contador
 ![CLK S0](Imagenes/TB_CLK0.png)
 
--Cambio contador decenas
+### Cambio contador decenas
 ![CLK S0](Imagenes/TB_CLK1.png)
 
--Estado final del contador
+### Estado final del contador
 ![CLK S0](Imagenes/TB_CLK2.png)
 
 ## 4. Dominio Físico
@@ -252,6 +250,8 @@ La implementación completa del esquemático electrónico se divide en cuatro et
 * **Etapa de Visualización de Salida:** Dos módulos de displays físicos de 7 segmentos independientes encargados de traducir los niveles lógicos en la representación visual de los dígitos correspondientes.
 
 
+![FPGA1](Imagenes/FPGACONNECTION.jpeg)
 
+![FPGA2](Imagenes/top.png)
 
 
