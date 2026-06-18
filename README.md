@@ -16,8 +16,7 @@ Establece las fronteras del sistema, definiendo claramente las señales de entra
 
 * **Entradas:** Reloj maestro (`clk`) de la tarjeta FPGA.
 * **Salidas:** Buses de control combinacionales de 7 segmentos independientes para las unidades (`seg_uni[6:0]`) y para las decenas (`seg_dec[6:0]`).
-
-![Diagrama de Caja Negra](Imagenes/DiagramaCajaNegra.png)
+![Diagrama de Flujo](Imagenes/CLK Processing Pipeline for-2026-06-05-031952.png)
 
 ### Diagrama de Flujo
 
