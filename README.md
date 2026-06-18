@@ -26,7 +26,8 @@ Describe el algoritmo de toma de decisiones y las prioridades del sistema:
 2.  **Prioridad 2 (Contador de Unidades):** Incrementa bajo la señal del divisor. Al alcanzar el valor binario máximo de `9`, se reinicia inmediatamente a `0` y propaga un acarreo síncrono.
 3.  **Prioridad 3 (Contador de Decenas):** Incrementa exclusivamente con el desborde del módulo de unidades. Al alcanzar el valor límite de `5` de manera simultánea con un `9` en las unidades (segundo 59), limpia ambos contadores.
 
-![Diagrama de Flujo](Imagenes/Diagrama_Flujo.jpeg)
+![Diagrama de Flujo](Imagenes/DiaFlujo.png)
+![Diagrama de Flujo](Imagenes/DiaFlujo2.png)
 
 ### Ecuaciones Booleanas
 
