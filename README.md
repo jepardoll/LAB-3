@@ -288,7 +288,7 @@ A continuación se envidencia el resultado obtenido:
 ### Estado final del contador (EDAplayground)
 ![CLK S0](Imagenes/TB_CLK2.png)
 
-### Simulación GTKWave (Iverilog y GTKWave)
+### Simulación GTKWave 
 ![CLK S0](Imagenes/GTKWave.jpeg)
 
 ## 4. Dominio Físico
