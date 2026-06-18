@@ -184,6 +184,7 @@ Este módulo no es sintetizable; su único propósito es inyectar estímulos (co
 ### Testbench 
 
 ```verilog
+//Simulación EDAplayground
 `timescale 1ns / 1ps
 
 module tb_top;
@@ -226,6 +227,51 @@ module tb_top;
     end
 
 endmodule
+
+
+
+
+//Simulación iverilog y GTKWave
+
+
+// filename: top_tb.v
+`timescale 1ns / 1ns
+
+`ifndef TIME_UNIT
+`define TIME_UNIT 10
+`endif
+
+// 1. El módulo DEBE llamarse top_tb para coincidir con tu Makefile
+module top_tb;
+
+  parameter integer OUTPUT_SIZE = 7;
+
+  reg clk = 0;
+  always #(`TIME_UNIT) clk = !clk;
+
+  wire [OUTPUT_SIZE-1:0] seg_uni;
+  wire [OUTPUT_SIZE-1:0] seg_dec;
+
+  top dut (
+      .clk(clk),
+      .seg_uni(seg_uni),
+      .seg_dec(seg_dec)
+  );
+
+  initial begin
+    $dumpfile("top_tb.vcd"); 
+    // 2. AQUÍ ESTABA EL ERROR: El nombre aquí debe ser exactamente el del módulo
+    $dumpvars(0, top_tb);
+  end
+
+  initial begin
+    $monitor("Tiempo: %0t ns | clk: %b | Decenas: %b | Unidades: %b", 
+             $time, clk, seg_dec, seg_uni);
+    #(`TIME_UNIT * 600) $finish(); 
+  end
+
+endmodule
+
 ```
 ---
 
@@ -233,14 +279,17 @@ endmodule
 A partir del tesbench verificamos que nuestra implementación del contador en la FPGA va a funcionar correctamente. 
 A continuación se envidencia el resultado obtenido: 
 
-### Estado inicial del contador
-![CLK S0](Imagenes/TB_CLK0.png)
+### Estado inicial del contador (EDAplayground)
+![CLK S0](Imagenes/TB_CLK0.png) 
 
-### Cambio contador decenas
+### Cambio contador decenas (EDAplayground)
 ![CLK S0](Imagenes/TB_CLK1.png)
 
-### Estado final del contador
+### Estado final del contador (EDAplayground)
 ![CLK S0](Imagenes/TB_CLK2.png)
+
+### Simulación GTKWave (Iverilog y GTKWave)
+![CLK S0](Imagenes/GTKWave.jpeg)
 
 ## 4. Dominio Físico
 
